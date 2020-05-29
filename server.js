@@ -7,6 +7,6 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-server.use("/recipes", recipeRouter);
+server.use("/", recipeRouter);
 
 module.exports = server;

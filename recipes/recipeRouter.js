@@ -8,10 +8,25 @@ server.use(express.json());
 
 server.get("/", (req, res) => {
   // get all species from the database
+
   console.log("we in here,");
   db.getRecipes()
-    .then((species) => {
-      res.status(200).json(species);
+    .then((recipes) => {
+      res.status(200).json(recipes);
+    })
+    .catch((error) => {
+      res.status(500).json(error.message);
+    });
+});
+
+server.get("/:id", (req, res) => {
+  // get all species from the database
+  const { id } = req.params;
+
+  console.log("we in here,");
+  db.getRecipes(id)
+    .then((recipes) => {
+      res.status(200).json(recipes);
     })
     .catch((error) => {
       res.status(500).json(error.message);
@@ -23,8 +38,8 @@ server.get("/:id/instructions", (req, res) => {
   const { id } = req.params;
   console.log("we over there,");
   db.getInstructions(id)
-    .then((species) => {
-      res.status(200).json(species);
+    .then((instructions) => {
+      res.status(200).json(instructions);
     })
     .catch((error) => {
       res.status(500).json(error.message);
@@ -36,8 +51,21 @@ server.get("/:id/shoppinglist", (req, res) => {
   const { id } = req.params;
   console.log("we over there,");
   db.getShoppingList(id)
-    .then((species) => {
-      res.status(200).json(species);
+    .then((list) => {
+      res.status(200).json(list);
+    })
+    .catch((error) => {
+      res.status(500).json(error.message);
+    });
+});
+
+server.get("/recipes/ingredients/:id", (req, res) => {
+  // get all species from the database
+  const { id } = req.params;
+  console.log("we over there,");
+  db.getIngredientList(id)
+    .then((list) => {
+      res.status(200).json(list);
     })
     .catch((error) => {
       res.status(500).json(error.message);
